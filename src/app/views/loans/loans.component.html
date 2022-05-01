@@ -1,0 +1,35 @@
+<div class="container-fluid bg-light h-100">
+    <div class="container-xxl">
+        <div class="row">
+            <section>
+                <h3 class="mb-0">{{title}}</h3>
+                <p class="mb-0 text-muted"><small><i class="bi bi-info-circle"></i> Visualiza todos los prestamos y Solicitudes</small></p>
+            </section>
+            <!-- <a href=""><i class="bi bi-chevron-left me-1"></i>Panel Administrativo</a> -->
+            <section>
+                <div class="row">
+                    <div class="col-md-12">
+                        <ul class="nav nav-tabs">
+                            <li class="nav-item">
+                              <a [class]="showPending? 'nav-link active' : 'nav-link'" (click)="switchTab('pending')">Nuevas Solicitudes</a>
+                            </li>
+                            <li class="nav-item">
+                              <a [class]="showActive? 'nav-link active' : 'nav-link'" (click)="switchTab('active')">Activos</a>
+                            </li>
+                            <li class="nav-item">
+                              <a [class]="showPaid? 'nav-link active' : 'nav-link'" (click)="switchTab('paid')">Saldados</a>
+                            </li>
+                            <li class="nav-item">
+                              <a [class]="showAll? 'nav-link active' : 'nav-link'" (click)="switchTab('all')">Todos</a>
+                            </li>
+                        </ul>
+                        <app-pending *ngIf="showPending"></app-pending>
+                        <app-active *ngIf="showActive"></app-active>
+                        <app-all *ngIf="showPaid"></app-all>
+                        <app-paid *ngIf="showAll"></app-paid>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,177 @@
+<div class="container-fluid bg-light h-100 animate__animated animate__fadeIn">
+    <div class="container-xxl">
+        <div class="row">
+            <section>
+                <h3 class="mb-0">{{title}}</h3>
+                <p class="text-muted">Abrir nueva solicitud de prestamo</p>
+            </section>
+            <small><a href=""><i class="bi bi-chevron-left me-1"></i>Panel Administrativo</a></small>
+            <section>
+                <div class="row">
+                    <div class="col-lg-8 col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="form">
+                                    <!-- datos del prestamo-->
+                                    <h5><strong>Datos del Prestamo</strong></h5>
+                                    <div class="row g-3">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="">Monto Solicitado</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text">RD$</span>
+                                                    <input [(ngModel)]="newLoan.amount" type="number" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="">Plazo (Meses)</label>
+                                                <input [(ngModel)]="newLoan.durationMonths" type="number" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="">Tasa de Interés Mensual (%)</label>
+                                                <input [(ngModel)]="newLoan.monthlyInterestRate" type="number" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="">Frecuencia de Pago</label>
+                                                <select [(ngModel)]="newLoan.paymentFrequencyInDays" name="" id="" class="form-select">
+                                                    <option value="30">Mensual</option>
+                                                    <option value="15">Quincenal</option>
+                                                    <option value="7">Semanal</option>
+                                                    <option value="1">Diario</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="">Cuota</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text">RD$</span>
+                                                    <input [(ngModel)]="newLoan.cuota" type="number" class="form-control" value="10" disabled>
+                                                    <button class="btn btn-secondary" (click)="calcularCuota()">Calcular Cuotas</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <br>
+                                    <!-- datos personales-->
+                                    <h5><strong>Datos Personales</strong></h5>
+                                    <div class="row g-3">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="">Nombre</label>
+                                                <input [(ngModel)]="newLoan.firstname" type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="">Apellido</label>
+                                                <input [(ngModel)]="newLoan.lastname" type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="">Cedula</label>
+                                                <input [(ngModel)]="newLoan.cedula" type="number" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="">Teléfono</label>
+                                                <input [(ngModel)]="newLoan.phone" type="phone" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="">Dirección</label>
+                                                <input [(ngModel)]="newLoan.address" type="address" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <br>
+                                    <!-- datos de garantia-->
+                                    <h5><strong>Datos de Garantía</strong></h5>
+                                    <div class="row g-3">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="">Garantía</label>
+                                                <textarea [(ngModel)]="newLoan.warranty" class="form-control" name="" id="" cols="30" rows="4"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <button (click)="log()" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#exampleModal">Enviar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content" *ngIf="!formSent">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Confirmar Solicitud</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body bg-light">
+            <!-- datos personales -->
+            <h5><strong>Datos Personales</strong></h5>
+            <p>{{newLoan.firstname}} {{newLoan.lastname}}</p>
+            <p>{{newLoan.cedula}}</p>
+            <p><i class="bi bi-telephone-fill"></i> {{newLoan.phone}}</p>
+            <p><i class="bi bi-geo-alt-fill"></i> {{newLoan.address}}</p>
+            <hr>
+            <!-- datos del prestamo -->
+            <h5><strong>Datos del Prestamo</strong></h5>
+            <p>Monto: RD${{newLoan.amount}}</p>
+            <p>Tasa: {{newLoan.monthlyInterestRate}}%</p>
+            <p>Plazo: {{newLoan.durationMonths}} Meses</p>
+            <p>
+                Frecuencia de Pago: 
+                <span *ngIf="newLoan.paymentFrequencyInDays == 1">Diario</span>
+                <span *ngIf="newLoan.paymentFrequencyInDays == 7">Semanal</span>
+                <span *ngIf="newLoan.paymentFrequencyInDays == 15">Quincenal</span>
+                <span *ngIf="newLoan.paymentFrequencyInDays == 30">Mensual</span>
+            </p>
+            <p>Monto Cuotas: RD${{newLoan.cuota}}</p>
+            <hr>
+            <!-- datos de garantia-->
+            <h5><strong>Datos de Garantía</strong></h5>
+            <p>{{newLoan.warranty}}</p>
+            <!-- the loan start date is saved behind scenes -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" (click)="createLoanRecord()">Enviar</button>
+        </div>
+      </div>
+      <div class="modal-content" *ngIf="formSent">
+        <div class="modal-header border-0">
+            <button type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+        <div class="modal-body confirm">
+            <img width="128" src="/assets/icons/check.png" alt="checkmark icon">
+            <h4>Solicitud Creada</h4>
+            <br>
+        </div>
+      </div>
+    </div>
+  </div>

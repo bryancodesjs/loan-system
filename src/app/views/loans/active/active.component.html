@@ -1,0 +1,30 @@
+<div class="p-3 bg-white overflow-auto animate__animated animate__fadeIn">
+    <p *ngIf="activeLoans == 0 || activeLoans == null">No existen préstamos activos.</p>
+    <table class="table table-hover" *ngIf="activeLoans.length > 0">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Monto Prestado</th>
+                <th>Tasa</th>
+                <th>Total a Pagar</th>
+                <th>Total Pagado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- for loop goes here -->
+            <tr *ngFor="let loan of activeLoans">
+                <th>{{loan.key}}</th>
+                <th>{{loan.firstname}} {{loan.lastname}}</th>
+                <th>RD${{loan.amount | mask: 'separator':','}}</th>
+                <th>{{loan.monthlyInterestRate}}%</th>
+                <th>RD${{loan.totalToPay | mask: 'separator':','}}</th>
+                <th>RD${{loan.totalPaid | mask: 'separator':','}}</th>
+                <th>
+                    <button class="btn btn-sm btn-success w-100">Recibir Pago</button>
+                </th>
+            </tr>
+        </tbody>
+    </table>
+</div>

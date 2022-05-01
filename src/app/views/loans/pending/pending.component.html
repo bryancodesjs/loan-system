@@ -1,0 +1,110 @@
+<div class="p-3 bg-white animate__animated animate__fadeIn">
+    <p *ngIf="pendingLoans == 0 || pendingLoans == null">No existen solicitudes pendientes.</p>
+    <table class="table table-hover" *ngIf="pendingLoans.length > 0">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Monto</th>
+                <th>Tasa</th>
+                <th>Total a Pagar</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- for loop goes here -->
+            <tr *ngFor="let loan of pendingLoans">
+                <th>{{loan.key}}</th>
+                <th>{{loan.firstname}} {{loan.lastname}}</th>
+                <th>RD${{loan.amount | mask: 'separator':','}}</th>
+                <th>{{loan.monthlyInterestRate}}%</th>
+                <th>RD${{loan.totalToPay | mask: 'separator':','}}</th>
+                <th>
+                    <div class="dropdown">
+                        <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                          Acciones
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                          <li (click)="preApprove(loan)" data-bs-toggle="modal" data-bs-target="#exampleModal"><a class="dropdown-item success">Aprobar <i class="bi bi-check float-end"></i></a></li>
+                          <li><hr class="dropdown-divider"></li>
+                          <li (click)="preDeny(loan)" data-bs-toggle="modal" data-bs-target="#exampleModal"><a class="dropdown-item danger" >Denegar <i class="bi bi-x float-end"></i></a></li>
+                        </ul>
+                      </div>
+                </th>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <!-- default render -->
+      <div class="modal-content" *ngIf="!formSent">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel" *ngIf="willApprove">Aprobar Prestamo</h5>
+          <h5 class="modal-title text-danger" id="exampleModalLabel" *ngIf="!willApprove">Denegar Prestamo</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body bg-light">
+            <!-- datos personales -->
+            <h5><strong>Datos Personales</strong></h5>
+            <p>{{loanInMemory.firstname}} {{loanInMemory.lastname}}</p>
+            <p>{{loanInMemory.cedula}}</p>
+            <p><i class="bi bi-telephone-fill"></i> {{loanInMemory.phone}}</p>
+            <p><i class="bi bi-geo-alt-fill"></i> {{loanInMemory.address}}</p>
+            <hr>
+            <!-- datos del prestamo -->
+            <h5><strong>Datos del Prestamo</strong></h5>
+            <p>Monto: RD${{loanInMemory.amount | mask: 'separator':','}}</p>
+            <p>Tasa: {{loanInMemory.monthlyInterestRate}}%</p>
+            <p>Plazo: {{loanInMemory.durationMonths}} Meses</p>
+            <p>
+                Frecuencia de Pago: 
+                <span *ngIf="loanInMemory.paymentFrequencyInDays == 1">Diario</span>
+                <span *ngIf="loanInMemory.paymentFrequencyInDays == 7">Semanal</span>
+                <span *ngIf="loanInMemory.paymentFrequencyInDays == 15">Quincenal</span>
+                <span *ngIf="loanInMemory.paymentFrequencyInDays == 30">Mensual</span>
+            </p>
+            <p>Monto Cuotas: RD${{loanInMemory.cuota | mask: 'separator':','}}</p>
+            <div class="alert alert-success">
+                <p class="mb-1">Total a Pagar</p>
+                <h4>RD${{loanInMemory.totalToPay | mask: 'separator':','}}</h4>
+            </div>
+            <hr>
+            <!-- datos de garantia-->
+            <h5><strong>Datos de Garantía</strong></h5>
+            <p>{{loanInMemory.warranty}}</p>
+            <!-- the loan start date is saved behind scenes -->
+        </div>
+        <!-- if the loan will be approved, show this footer-->
+        <div class="modal-footer" *ngIf="willApprove">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" (click)="approve()">Aprobar</button>
+        </div>
+        <!-- if the loan will be denied, show this footer-->
+        <div class="modal-footer" *ngIf="!willApprove">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-danger" (click)="deny()">Denegar</button>
+        </div>
+      </div>
+      <!-- success-->
+      <div class="modal-content" *ngIf="formSent">
+        <div class="modal-header border-0">
+            <button type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <!-- confirmation notice -->
+        <div class="modal-body confirm" *ngIf="willApprove">
+            <img width="128" src="/assets/icons/check.png" alt="checkmark icon">
+            <h4>Prestamo Aprobado</h4>
+            <br>
+        </div>
+        <div class="modal-body confirm" *ngIf="!willApprove">
+          <img width="128" src="/assets/icons/check-danger.png" alt="checkmark icon">
+          <h4>Prestamo Denegado</h4>
+          <p class="mb-0">El prestamo ha sido archivado y podrá encontrarlo en la pestaña de 'Denegados'.</p>
+          <br>
+      </div>
+      </div>
+    </div>
+  </div>
