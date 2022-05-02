@@ -15,8 +15,10 @@ export class PendingComponent implements OnInit {
     key: '',
     denied: false,
     active: false,
+    completed: false,
     amount: 0,
     totalToPay: 0,
+    expectedEarnings: 0,
     totalPaid: 0,
     firstname:  '',
     lastname: '',
@@ -30,6 +32,7 @@ export class PendingComponent implements OnInit {
     cuota: 0,
     warranty: '',
     startDate: '',
+    payments: []
   }
   pendingLoans: any = [];
   constructor(private _LoanService: LoanService) { }

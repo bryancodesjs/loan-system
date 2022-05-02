@@ -2,9 +2,11 @@ export class Loan {
     key?: string | null;
     denied?: boolean;
     active?:boolean;
+    completed?:boolean;
     amount?:number;
     totalToPay?:number;
     totalPaid?:number;
+    expectedEarnings?:number;
     firstname?: string;
     lastname?:string;
     cedula?: number;
@@ -17,4 +19,5 @@ export class Loan {
     cuota?:number;
     warranty?:string;
     startDate?:string;
+    payments?:any;
 }

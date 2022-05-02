@@ -2,10 +2,15 @@
     <div class="container-xxl">
         <div class="row">
             <section>
-                <h3 class="mb-0">{{title}}</h3>
+                <h4 class="mb-0"><strong>Prestamos</strong></h4>
                 <p class="mb-0 text-muted"><small><i class="bi bi-info-circle"></i> Visualiza todos los prestamos y Solicitudes</small></p>
             </section>
-            <!-- <a href=""><i class="bi bi-chevron-left me-1"></i>Panel Administrativo</a> -->
+            <div class="alert alert-danger">
+              <ul>
+                <li>Agregar validacion de montos negativos</li>
+                <li>Agregar validacion de campo vacio</li>
+              </ul>
+            </div>
             <section>
                 <div class="row">
                     <div class="col-md-12">
@@ -25,8 +30,8 @@
                         </ul>
                         <app-pending *ngIf="showPending"></app-pending>
                         <app-active *ngIf="showActive"></app-active>
-                        <app-all *ngIf="showPaid"></app-all>
-                        <app-paid *ngIf="showAll"></app-paid>
+                        <app-paid *ngIf="showPaid"></app-paid>
+                        <app-all *ngIf="showAll"></app-all>
                     </div>
                 </div>
             </section>

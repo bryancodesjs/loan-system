@@ -15,8 +15,10 @@ export class NewComponent implements OnInit {
   newLoan = {
     denied: false,
     active: false,
+    completed: false,
     amount: 0,
     totalToPay: 0,
+    expectedEarnings: 0,
     totalPaid: 0,
     firstname:  '',
     lastname: '',
@@ -30,6 +32,12 @@ export class NewComponent implements OnInit {
     cuota: 0,
     warranty: '',
     startDate: '',
+    payments: [
+      {
+        amount: 0,
+        date: ''
+      }
+    ]
   }
   title = "Nueva Solicitud";
   
@@ -43,8 +51,10 @@ export class NewComponent implements OnInit {
     var originalAmount = this.newLoan.amount;
     var interestRate = this.newLoan.monthlyInterestRate / 100;
     var interestAmount = originalAmount * interestRate * this.newLoan.durationMonths;
-    var totalToBePaid = originalAmount + interestAmount; 
+    // var totalToBePaid = originalAmount + interestAmount; 
+    var totalToBePaid = Math.ceil(originalAmount + interestAmount); 
     this.newLoan.totalToPay = totalToBePaid;
+    this.newLoan.expectedEarnings = totalToBePaid;
     //calculate the total amount of cuotas
     var durationInDays = this.newLoan.durationMonths * 30;
     var totalCuotas = durationInDays / this.newLoan.paymentFrequencyInDays;
@@ -70,8 +80,10 @@ export class NewComponent implements OnInit {
   }
   resetValues() {
     this.newLoan.active = false;
+    this.newLoan.completed = false;
     this.newLoan.amount = 0;
     this.newLoan.totalToPay = 0;
+    this.newLoan.expectedEarnings = 0;
     this.newLoan.totalPaid = 0;
     this.newLoan.firstname = '';
     this.newLoan.lastname = '';
@@ -84,5 +96,6 @@ export class NewComponent implements OnInit {
     this.newLoan.paymentFrequencyInDays = 0;
     this.newLoan.cuota = 0;
     this.newLoan.warranty = '';
+    this.newLoan.payments = [];
   }
 }

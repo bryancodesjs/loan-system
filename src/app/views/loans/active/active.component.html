@@ -3,11 +3,11 @@
     <table class="table table-hover" *ngIf="activeLoans.length > 0">
         <thead>
             <tr>
-                <th>ID</th>
+                <!-- <th>ID</th> -->
                 <th>Nombre</th>
                 <th>Monto Prestado</th>
                 <th>Tasa</th>
-                <th>Total a Pagar</th>
+                <th>Pendiente por Pagar</th>
                 <th>Total Pagado</th>
                 <th>Acciones</th>
             </tr>
@@ -15,16 +15,69 @@
         <tbody>
             <!-- for loop goes here -->
             <tr *ngFor="let loan of activeLoans">
-                <th>{{loan.key}}</th>
-                <th>{{loan.firstname}} {{loan.lastname}}</th>
-                <th>RD${{loan.amount | mask: 'separator':','}}</th>
-                <th>{{loan.monthlyInterestRate}}%</th>
-                <th>RD${{loan.totalToPay | mask: 'separator':','}}</th>
-                <th>RD${{loan.totalPaid | mask: 'separator':','}}</th>
-                <th>
-                    <button class="btn btn-sm btn-success w-100">Recibir Pago</button>
-                </th>
+                <!-- <td>{{loan.key}}</td> -->
+                <td>{{loan.firstname}} {{loan.lastname}}</td>
+                <td>RD${{loan.amount | mask: 'separator':','}}</td>
+                <td>{{loan.monthlyInterestRate}}%</td>
+                <td>RD${{loan.totalToPay | mask: 'separator':','}}</td>
+                <td>RD${{loan.totalPaid | mask: 'separator':','}}</td>
+                <td>
+                    <div class="btn-group btn-group-sm" *ngIf="loan.totalToPay > 0">
+                        <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="receiveFrom(loan)">Recibir Pago</button>
+                        <button class="btn btn-sm btn-outline-success">Historial</button>
+                    </div>
+                    <button class="btn btn-sm btn-secondary" *ngIf="loan.totalToPay == 0" (click)="moveToCompleted(loan)">Mover a Saldados <i class="bi bi-folder-symlink"></i></button>
+                </td>
             </tr>
         </tbody>
     </table>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content" *ngIf="!formSent">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Recibir Pago</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body bg-light">
+            <label for="">Cliente:</label>
+            <h5>{{loanInMemory.firstname}} {{loanInMemory.lastname}}</h5>
+            <div class="form-group" *ngIf="loanInMemory.totalToPay > 0">
+                <label for="">Monto:</label>
+                <div class="input-group">
+                    <span class="input-group-text">RD$</span>
+                    <input [(ngModel)]="amountOnForm" type="number" class="form-control">
+                </div>
+                <label class="text-danger" *ngIf="!validPayment">El pago máximo permitido es RD${{loanInMemory.totalToPay | mask: 'separator':','}}</label>
+            </div>
+            <div class="alert alert-success" *ngIf="loanInMemory.totalToPay == 0">
+                <h5 class="mb-0"><strong>Prestamo completado</strong></h5>
+                <p>No quedan pagos pendientes</p>
+            </div>
+        </div>
+        <div class="modal-footer" *ngIf="loanInMemory.totalToPay > 0">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-success" (click)="confirmPayment()">Recibir</button>
+        </div>
+      </div>
+      <div class="modal-content" *ngIf="formSent">
+        <div class="modal-header border-0">
+            <button type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+        <div class="modal-body confirm">
+            <img width="128" src="/assets/icons/check.png" alt="checkmark icon">
+            <h4>¡Pago Recibido!</h4>
+            <br>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- window confirmation bottom right -->
+  <div *ngIf="showAlert" class="window-alert animate__animated animate__fadeInUp">
+    <div class="alert alert-success">
+        Prestamo movido a pestaña de 'Saldados'
+    </div>
+  </div>

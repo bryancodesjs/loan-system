@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
+import { LoanService } from 'src/app/services/loan.service';
+import { map } from 'rxjs/operators'
 @Component({
   selector: 'app-loans',
   templateUrl: './loans.component.html',
@@ -7,15 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoansComponent implements OnInit {
   title = "Prestamos";
-  constructor() { }
+  activeLoans = 0;
+
+  constructor(private _LoanService: LoanService) { }
   showPending = true;
   showActive = false;
   showAll = false;
   showPaid = false;
 
   ngOnInit(): void {
+    //if there are no new loan requests, then show the 'active' tab
   }
-
   resetTabs(){
     this.showPending = false;
     this.showActive = false;

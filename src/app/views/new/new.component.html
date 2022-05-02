@@ -2,10 +2,10 @@
     <div class="container-xxl">
         <div class="row">
             <section>
-                <h3 class="mb-0">{{title}}</h3>
+                <h4 class="mb-0"><strong>{{title}}</strong></h4>
                 <p class="text-muted">Abrir nueva solicitud de prestamo</p>
             </section>
-            <small><a href=""><i class="bi bi-chevron-left me-1"></i>Panel Administrativo</a></small>
+            <!-- <small><a href=""><i class="bi bi-chevron-left me-1"></i>Panel Administrativo</a></small> -->
             <section>
                 <div class="row">
                     <div class="col-lg-8 col-md-12">
@@ -170,6 +170,7 @@
         <div class="modal-body confirm">
             <img width="128" src="/assets/icons/check.png" alt="checkmark icon">
             <h4>Solicitud Creada</h4>
+            <button class="btn btn-primary" routerLink="/loans" data-bs-dismiss="modal" aria-label="Close">Ver solicitudes</button>
             <br>
         </div>
       </div>

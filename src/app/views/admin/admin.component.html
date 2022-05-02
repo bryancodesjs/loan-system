@@ -2,7 +2,12 @@
     <div class="container-xxl">
         <div class="row">
             <section>
-                <h3 class="mb-0">{{title}}</h3>
+                <h4 class="mb-0"><strong>{{title}}</strong></h4>
+                <p class="mb-0 text-muted">
+                    <small>
+                        <i class="bi bi-info-circle"></i> Resumen general de prestamos, clientes y solicitudes
+                    </small>
+                </p>
             </section>
             <section>
                 <div class="row">
@@ -11,8 +16,8 @@
                             <div class="col-lg-4">
                                 <div class="card h-100" routerLink="loans">  
                                     <div class="card-body w-100">
-                                        <div class="mb-3">Prestamos <i class="bi bi-cash-coin ms-1"></i></div>
-                                        <h3 class="mb-0">25</h3>
+                                        <div class="mb-3">Prestamos Activos <i class="bi bi-cash-coin ms-1"></i></div>
+                                        <h3 class="mb-0">{{activeLoans}}</h3>
                                         <a class="float-end">Ver todo</a>
                                     </div>
                                 </div>
@@ -20,8 +25,8 @@
                             <div class="col-lg-4">
                                 <div class="card h-100">
                                     <div class="card-body w-100">
-                                        <div class="mb-3">Total por colectar <i class="bi bi-bank ms-1"></i></div>
-                                        <h3 class="mb-0">RD$357000</h3>
+                                        <div class="mb-3">Pendiente por cobrar <i class="bi bi-bank ms-1"></i></div>
+                                        <h3 class="mb-0">RD${{totalToCollect | mask: 'separator':','}}</h3>
                                     </div>
                                 </div>
                             </div>
@@ -29,7 +34,7 @@
                                 <div class="card h-100">
                                     <div class="card-body w-100">
                                         <div class="mb-3">Capital flotante <i class="bi bi-wallet2"></i></div>
-                                        <h3 class="mb-0">RD$698000</h3>
+                                        <h3 class="mb-0">RD${{expectedEarnings | mask: 'separator':','}}</h3>
                                     </div>
                                 </div>
                             </div>
