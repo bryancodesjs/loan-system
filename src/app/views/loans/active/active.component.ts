@@ -12,6 +12,8 @@ export class ActiveComponent implements OnInit {
   formConfirmed = false;
   activeLoans:any = [];
   validPayment = true;
+  negativePayment = false;
+  emptyPayment = false;
   showAlert = false;
   loanInMemory = {
     key: '',
@@ -34,6 +36,7 @@ export class ActiveComponent implements OnInit {
     cuota: 0,
     warranty: '',
     startDate: '',
+    endDate: '',
     payments: [{}],
   }
   paymentsInMemory: any[] = [];
@@ -61,6 +64,8 @@ export class ActiveComponent implements OnInit {
   }
   receiveFrom(loan:any) {
     this.validPayment = true;
+    this.negativePayment = false;
+    this.emptyPayment = false;
     this.amountOnForm = undefined;
     this.formConfirmed = false;
     this.formSent = false;
@@ -72,16 +77,26 @@ export class ActiveComponent implements OnInit {
     this.newPayment.amount = this.amountOnForm;
     this.newPayment.date = new Date().toLocaleString();
     var paymentIsValid = this.validatePayment();
-    if(paymentIsValid) {
-      //add new single payment to loan record
-      this.loanInMemory.payments.push(this.newPayment);
-      this.loanInMemory.totalPaid += this.newPayment.amount;
-      this.loanInMemory.totalToPay -= this.newPayment.amount;
-      this._LoanService.update(this.loanInMemory.key, this.loanInMemory);
-      this.formSent = true;
+    var paymentIsNegative = this.validateNegative();
+    var paymentIsEmpty = this.validateEmpty();
+    if(paymentIsEmpty){
+      this.emptyPayment = true;
     } else {
-      this.validPayment = false;
-      console.log('error: payment amount is invalid');
+      if(paymentIsNegative){
+        this.negativePayment = true;
+      } else {
+        if(paymentIsValid) {
+          //add new single payment to loan record
+          this.loanInMemory.payments.push(this.newPayment);
+          this.loanInMemory.totalPaid += this.newPayment.amount;
+          this.loanInMemory.totalToPay -= this.newPayment.amount;
+          this._LoanService.update(this.loanInMemory.key, this.loanInMemory);
+          this.formSent = true;
+        } else {
+          this.validPayment = false;
+          console.log('error: payment amount is invalid');
+        }
+      }
     }
   }
   refreshScreen(){
@@ -90,16 +105,29 @@ export class ActiveComponent implements OnInit {
   
   validatePayment(){
     if(this.newPayment.amount > this.loanInMemory.totalToPay) {
-      //this.validPayment = false;
       return false;
     } else {
       return true;
     }
   }
-  
+  validateNegative(){
+    if(this.newPayment.amount < 0){
+      return true;
+    } else {
+      return false;
+    }
+  }
+  validateEmpty(){
+    if(this.newPayment.amount == undefined || this.newPayment.amount == null){
+      return true;
+    } else {
+      return false;
+    }
+  }
   moveToCompleted(loan: any){
     this.loanInMemory = loan;
     this.loanInMemory.completed = true;
+    this.loanInMemory.endDate = new Date().toLocaleString();
     this._LoanService.update(this.loanInMemory.key, this.loanInMemory);
     //trigger a notification
     this.showAlertSuccess();

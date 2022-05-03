@@ -19,5 +19,6 @@ export class Loan {
     cuota?:number;
     warranty?:string;
     startDate?:string;
+    endDate?:string;
     payments?:any;
 }

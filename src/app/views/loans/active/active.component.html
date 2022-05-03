@@ -42,8 +42,16 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body bg-light">
-            <label for="">Cliente:</label>
-            <h5>{{loanInMemory.firstname}} {{loanInMemory.lastname}}</h5>
+            <div class="row">
+              <div class="col-6">
+                <label for="">Cliente:</label>
+                <h5>{{loanInMemory.firstname}} {{loanInMemory.lastname}}</h5>
+              </div>
+              <div class="col-6">
+                <label for="">Cuota:</label>
+                <h5>RD${{loanInMemory.cuota | mask: 'separator':','}}</h5>
+              </div>
+            </div>
             <div class="form-group" *ngIf="loanInMemory.totalToPay > 0">
                 <label for="">Monto:</label>
                 <div class="input-group">
@@ -51,6 +59,8 @@
                     <input [(ngModel)]="amountOnForm" type="number" class="form-control">
                 </div>
                 <label class="text-danger" *ngIf="!validPayment">El pago máximo permitido es RD${{loanInMemory.totalToPay | mask: 'separator':','}}</label>
+                <label class="text-danger" *ngIf="negativePayment">El monto debe ser mayor que RD$0</label>
+                <label class="text-danger" *ngIf="emptyPayment">Por favor indique la cantidad a depositar</label>
             </div>
             <div class="alert alert-success" *ngIf="loanInMemory.totalToPay == 0">
                 <h5 class="mb-0"><strong>Prestamo completado</strong></h5>

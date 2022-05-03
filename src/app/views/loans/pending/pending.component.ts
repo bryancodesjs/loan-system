@@ -32,6 +32,7 @@ export class PendingComponent implements OnInit {
     cuota: 0,
     warranty: '',
     startDate: '',
+    endDate: '',
     payments: []
   }
   pendingLoans: any = [];

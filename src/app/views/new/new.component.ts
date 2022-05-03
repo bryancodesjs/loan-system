@@ -32,6 +32,7 @@ export class NewComponent implements OnInit {
     cuota: 0,
     warranty: '',
     startDate: '',
+    endDate: '',
     payments: [
       {
         amount: 0,

@@ -1,30 +1,27 @@
 <div class="p-3 bg-white overflow-auto animate__animated animate__fadeIn">
-    <table class="table table-hover">
+    <p *ngIf="paidLoans == 0 || paidLoans == null">No existen préstamos saldados.</p>
+    <table class="table table-hover" *ngIf="paidLoans.length > 0">
         <thead>
             <tr>
-                <th>ID</th>
+                <th>Apertura</th>
+                <th>Cierre</th>
                 <th>Nombre</th>
                 <th>Monto Prestado</th>
-                <th>Interes (%)</th>
-                <th>Interes ($)</th>
-                <th>Total a Pagar</th>
-                <th>Total Pagado</th>
-                <th>Acciones</th>
+                <th>Tasa</th>
+                <th>Monto Recaudado</th>
+                <th>Ganancias</th>
             </tr>
         </thead>
         <tbody>
             <!-- for loop goes here -->
-            <tr>
-                <td>1</td>
-                <td>john</td>
-                <td>$0</td>
-                <td>0%</td>
-                <td>$0</td>
-                <td class="text-danger">$0</td>
-                <td>$0</td>
-                <td>
-                    <em>null</em>
-                </td>
+            <tr *ngFor="let loan of paidLoans">
+                <td>{{loan.startDate}}</td>
+                <td>{{loan.endDate}}</td>
+                <td>{{loan.firstname}} {{loan.lastname}}</td>
+                <td>RD${{loan.amount | mask: 'separator':','}}</td>
+                <td>{{loan.monthlyInterestRate}}%</td>
+                <td>RD${{loan.expectedEarnings | mask: 'separator':','}}</td>
+                <td>RD${{loan.expectedEarnings - loan.amount | mask: 'separator':','}}</td>
             </tr>
         </tbody>
     </table>
