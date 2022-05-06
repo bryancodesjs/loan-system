@@ -22,7 +22,12 @@ import { ActiveComponent } from './views/loans/active/active.component';
 import { PaidComponent } from './views/loans/paid/paid.component';
 import { AllComponent } from './views/loans/all/all.component';
 import { PendingComponent } from './views/loans/pending/pending.component';
+
+//ng bootstrap
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
+//print module
+import { NgxPrintElementModule } from 'ngx-print-element';
 
 @NgModule({
   declarations: [
@@ -47,7 +52,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     NgxMaskModule.forRoot(),
-    NgbModule
+    NgbModule,
+    NgxPrintElementModule
   ],
   providers: [],
   bootstrap: [AppComponent]

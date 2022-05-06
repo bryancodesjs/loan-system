@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoanService } from 'src/app/services/loan.service';
-import { map } from 'rxjs/operators'
-
+import { map } from 'rxjs/operators';
 @Component({
   selector: 'app-active',
   templateUrl: './active.component.html',
