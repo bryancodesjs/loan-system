@@ -26,7 +26,7 @@ export class PaidComponent implements OnInit {
       var filtered = toFilter.filter(a => a.active == true && a.denied == false && a.completed == true);
       //console.log(filtered);
       this.paidLoans = filtered;
-      console.log(this.paidLoans);
+      //console.log(this.paidLoans);
     });
   }
 }
