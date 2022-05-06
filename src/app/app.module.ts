@@ -22,6 +22,7 @@ import { ActiveComponent } from './views/loans/active/active.component';
 import { PaidComponent } from './views/loans/paid/paid.component';
 import { AllComponent } from './views/loans/all/all.component';
 import { PendingComponent } from './views/loans/pending/pending.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { PendingComponent } from './views/loans/pending/pending.component';
     AngularFireAuthModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
-    NgxMaskModule.forRoot()
+    NgxMaskModule.forRoot(),
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

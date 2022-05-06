@@ -66,3 +66,18 @@ section {
 .animate__animated {
     -o-animation-duration: 0.2s;
 }
+.print-btn {
+    i {
+        font-size: 2rem;
+        color: #051e34;
+        filter: opacity(0.5);
+        transition: 0.2s ease;
+        &:hover {
+            filter: none;
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+    }
+}
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';

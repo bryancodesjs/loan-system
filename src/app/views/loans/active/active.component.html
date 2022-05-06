@@ -56,7 +56,7 @@
                 <label for="">Monto:</label>
                 <div class="input-group">
                     <span class="input-group-text">RD$</span>
-                    <input [(ngModel)]="amountOnForm" type="number" class="form-control">
+                    <input (keyup.enter)="confirmPayment()" [(ngModel)]="amountOnForm" type="number" class="form-control">
                 </div>
                 <label class="text-danger" *ngIf="!validPayment">El pago máximo permitido es RD${{loanInMemory.totalToPay | mask: 'separator':','}}</label>
                 <label class="text-danger" *ngIf="negativePayment">El monto debe ser mayor que RD$0</label>
@@ -93,6 +93,16 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
+        <!-- print button-->
+        <div class="row">
+          <div class="col-12">
+            <div class="float-end">
+              <span class="print-btn tooltipInit" placement="left" ngbTooltip="Imprimir" [openDelay]="300">
+                <i class="bi bi-printer-fill"></i>
+              </span>
+            </div>
+          </div>
+        </div>
         <!-- debtor info-->
         <div class="row">
           <div class="col-12 col-md-6">

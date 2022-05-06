@@ -80,7 +80,8 @@ export class ActiveComponent implements OnInit {
     //calculate progress
     var multiplier = 100 / this.loanInMemory.expectedEarnings;
     var percentage = multiplier * this.loanInMemory.totalPaid;
-    this.loanProgress = Math.ceil(percentage);
+    //the .toFixed() turns the num into a string; to avoid this, the '+' is added at the beginning
+    this.loanProgress = +(percentage.toFixed(2));
   }
   confirmPayment(){
     this.newPayment.amount = this.amountOnForm;
@@ -146,6 +147,7 @@ export class ActiveComponent implements OnInit {
     this.showAlert = true;
     setTimeout( () => {
       this.showAlert = false;
-    }, 3000);
+    }, 5000);
   }
+  
 }
