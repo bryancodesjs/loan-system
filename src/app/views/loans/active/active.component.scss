@@ -1,0 +1,4 @@
+//since the first payment in the record will always be zero, the first row will be always hidden
+#paymentHistory tr:nth-of-type(1) {
+    display: none;
+}

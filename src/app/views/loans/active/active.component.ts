@@ -15,6 +15,7 @@ export class ActiveComponent implements OnInit {
   negativePayment = false;
   emptyPayment = false;
   showAlert = false;
+  loanProgress = 0;
   loanInMemory = {
     key: '',
     denied: false,
@@ -72,6 +73,14 @@ export class ActiveComponent implements OnInit {
     this.loanInMemory = loan;
     this.paymentsInMemory = this.loanInMemory.payments;
     //console.log(this.loanInMemory);
+  }
+  viewHistory(loan:any){
+    this.loanInMemory = loan;
+    this.paymentsInMemory = this.loanInMemory.payments;
+    //calculate progress
+    var multiplier = 100 / this.loanInMemory.expectedEarnings;
+    var percentage = multiplier * this.loanInMemory.totalPaid;
+    this.loanProgress = Math.ceil(percentage);
   }
   confirmPayment(){
     this.newPayment.amount = this.amountOnForm;
