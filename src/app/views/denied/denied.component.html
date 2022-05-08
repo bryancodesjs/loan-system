@@ -1,5 +1,20 @@
 <div class="p-3 bg-white overflow-auto animate__animated animate__fadeIn">
-    <p>No existen préstamos no aprobados.</p> <!-- *ngIf="paidLoans == 0 || paidLoans == null" -->
-    <table class="table table-hover"> <!-- *ngIf="paidLoans.length > 0" -->
+    <p *ngIf="deniedLoans == 0 || deniedLoans == null">No existen préstamos no aprobados.</p> <!-- *ngIf="paidLoans == 0 || paidLoans == null" -->
+    <table class="table table-hover" *ngIf="deniedLoans.length > 0"> <!-- *ngIf="paidLoans.length > 0" -->
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Monto Prestado</th>
+                <th>Tasa</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- loop -->
+            <tr *ngFor="let loan of deniedLoans">
+                <td>{{loan.firstname}} {{loan.lastname}}</td>
+                <td>RD${{loan.amount | mask: 'separator':','}}</td>
+                <td>{{loan.monthlyInterestRate}}%</td>
+            </tr>
+        </tbody>
     </table>
 </div>
