@@ -28,6 +28,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 //print module
 import { NgxPrintElementModule } from 'ngx-print-element';
+import { DeniedComponent } from './views/denied/denied.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { NgxPrintElementModule } from 'ngx-print-element';
     ActiveComponent,
     PaidComponent,
     AllComponent,
-    PendingComponent
+    PendingComponent,
+    DeniedComponent
   ],
   imports: [
     BrowserModule,

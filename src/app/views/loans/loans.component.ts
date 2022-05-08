@@ -15,6 +15,7 @@ export class LoansComponent implements OnInit {
   showActive = false;
   showAll = false;
   showPaid = false;
+  showDenied = false;
 
   ngOnInit(): void {
     //if there are no new loan requests, then show the 'active' tab
@@ -24,6 +25,7 @@ export class LoansComponent implements OnInit {
     this.showActive = false;
     this.showAll = false;
     this.showPaid = false;
+    this.showDenied = false;
   }
 
   switchTab(str:any) {
@@ -43,6 +45,10 @@ export class LoansComponent implements OnInit {
       case 'all':
         this.resetTabs();
         this.showAll = true;
+        break;
+      case 'denied':
+        this.resetTabs();
+        this.showDenied = true;
         break;
       default:
         this.resetTabs();
