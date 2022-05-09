@@ -14,7 +14,7 @@
         </thead>
         <tbody>
             <!-- for loop goes here -->
-            <tr *ngFor="let loan of paidLoans">
+            <tr *ngFor="let loan of paidLoans | paginate: { itemsPerPage: 10, currentPage: p }">
                 <td>{{loan.startDate}}</td>
                 <td>{{loan.endDate}}</td>
                 <td>{{loan.firstname}} {{loan.lastname}}</td>
@@ -25,4 +25,10 @@
             </tr>
         </tbody>
     </table>
+    <nav class="float-end" aria-label="Page navigation example">
+        <ul class="pagination">
+          <li class="page-item" (click)="previous()"><a class="page-link" >Anterior</a></li>
+          <li class="page-item" (click)="next()"><a class="page-link" >Siguiente</a></li>
+        </ul>
+      </nav>
 </div>

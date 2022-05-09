@@ -30,6 +30,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxPrintElementModule } from 'ngx-print-element';
 import { DeniedComponent } from './views/denied/denied.component';
 
+//pagination module
+import {NgxPaginationModule} from 'ngx-pagination';
 @NgModule({
   declarations: [
     AppComponent,
@@ -55,7 +57,8 @@ import { DeniedComponent } from './views/denied/denied.component';
     AngularFireDatabaseModule,
     NgxMaskModule.forRoot(),
     NgbModule,
-    NgxPrintElementModule
+    NgxPrintElementModule,
+    NgxPaginationModule
   ],
   providers: [],
   bootstrap: [AppComponent]

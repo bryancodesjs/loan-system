@@ -8,6 +8,7 @@ import { map } from 'rxjs/operators'
   styleUrls: ['./paid.component.scss']
 })
 export class PaidComponent implements OnInit {
+  p: number = 1;
   paidLoans:any = [];
   constructor(private _LoanService: LoanService) { }
 
@@ -28,5 +29,11 @@ export class PaidComponent implements OnInit {
       this.paidLoans = filtered;
       //console.log(this.paidLoans);
     });
+  }
+  next(){
+    this.p ++;
+  }
+  previous(){
+    this.p --;
   }
 }
