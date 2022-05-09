@@ -20,7 +20,7 @@ app-root {
     display: flex;
     flex-flow: column;
 }
-app-admin, app-loans, app-login, app-clients, app-new {
+app-admin, app-loans, app-login, app-clients, app-new, app-login {
     flex:1;
 }
 body, html, app-root {

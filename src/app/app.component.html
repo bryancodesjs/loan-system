@@ -1,3 +1,5 @@
-<app-navbar></app-navbar>
-<router-outlet class="flex-1"></router-outlet>
-<app-footer></app-footer>
+<app-navbar *ngIf="authService.userData | async"></app-navbar>
+<router-outlet class="flex-1" *ngIf="authService.userData | async"></router-outlet>
+<app-footer *ngIf="authService.userData | async"></app-footer>
+<!-- if user isn't authenticated, send to login screen -->
+<app-login class="flex-1" *ngIf="!(authService.userData | async)"></app-login>
