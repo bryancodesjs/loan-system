@@ -32,6 +32,7 @@ import { DeniedComponent } from './views/denied/denied.component';
 
 //pagination module
 import {NgxPaginationModule} from 'ngx-pagination';
+import { AboutComponent } from './views/about/about.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,7 +47,8 @@ import {NgxPaginationModule} from 'ngx-pagination';
     PaidComponent,
     AllComponent,
     PendingComponent,
-    DeniedComponent
+    DeniedComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,
